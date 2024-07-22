@@ -1,0 +1,49 @@
+server:
+  error:
+    include-message: ALWAYS
+    include-binding-errors: ALWAYS
+    include-stacktrace: NEVER
+    include-exception: false
+  port: 8080
+
+spring:
+  gson:
+    pretty-printing: true
+  jackson:
+    default-property-inclusion: NON_NULL
+    time-zone: Africa/Nairobi
+
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      username: developer
+      password: ^hy#gL}N[^X^t~.fw5P9
+      authentication-database: admin
+      database: jungophram
+      uuid-representation: JAVA_LEGACY
+  redis:
+    host: 172.17.180.14
+    port: 6379
+    database: 3
+    password: 12345678y9
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 10
+        min-idle: 5
+
+  application:
+    name: ms-jungophram-ecommerce
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui
+
+custom:
+  security:
+    secret: sInVkRjGfgzyejgcEaVB4Hqe9veF2z
+    access-token-expiry: 3600
+    token-prefix: Bearer
