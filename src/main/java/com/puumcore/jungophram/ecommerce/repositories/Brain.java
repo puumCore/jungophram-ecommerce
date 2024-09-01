@@ -92,12 +92,6 @@ public class Brain implements AccountOps, LoginOps,
     @Override
     public Optional<Account> getUser(Long id) {
         try {
-            var query = new Query();
-            query.addCriteria(
-                    Criteria
-                            .where("user_id").is(id)
-            );
-
             return userRepo.findById(id);
         } catch (Exception e) {
             log.error("Failed to get user", e);
@@ -201,7 +195,7 @@ public class Brain implements AccountOps, LoginOps,
                     Criteria.where("role").regex(containsPattern)
             );
             final Query query = new Query(criteria).with(pageable);
-            final long total = mongoTemplate.count(query, Product.class);
+            final long total = mongoTemplate.count(query, Account.class);
             if (total > 0) {
                 final List<Account> accountList = mongoTemplate.find(query, Account.class);
                 final int totalPages = Assistant.roundOffToNearestWholeNumber(total, pageable.getPageSize());
@@ -415,7 +409,7 @@ public class Brain implements AccountOps, LoginOps,
         return Optional.empty();
     }
 
-    @Cacheable("products")
+    @CachePut("products")
     @Override
     public Optional<Paged<Product>> getProducts(Pageable pageable) {
         try {
@@ -429,7 +423,7 @@ public class Brain implements AccountOps, LoginOps,
         return Optional.empty();
     }
 
-    @Cacheable("products")
+    @CachePut("products")
     @Override
     public Optional<Paged<Product>> getProducts(String param, Pageable pageable) {
         try {
